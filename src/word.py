@@ -24,14 +24,12 @@ class Word:
   def reset_score(self):
     self.score = [0] * 8
 
-  def update_score(self, guessed_target_word):
-    correct = guessed_target_word == self.target_word
+  def update_score(self, correct):
     if correct:
       self.score.insert(0, 1)
     else:
       self.score.insert(0, 0)
     self.score.pop()
-    return correct
 
   def average_score(self):
     if not self.score:
