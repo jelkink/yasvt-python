@@ -10,8 +10,8 @@ class WordList:
   def __init__(self):
     self.words = []
 
-  def read_file(self, filename):
-    with open(filename, 'r') as file:
+  def read_file(self, filename, reverse):
+    with open(filename, 'r', encoding="utf8") as file:
       reader = csv.reader(file)
       first_row = next(reader)
       if len(first_row) < 2:
@@ -25,17 +25,24 @@ class WordList:
               f"Error in row {row_num}: Row must contain at least two items.")
         source_word, target_word = row[:2]
         note = row[2] if len(row) > 2 else None
-        word = Word(source_language, target_language, source_word.strip(),
-                    target_word.strip(), note)
-        self.words.append(word)
-        word = Word(target_language, source_language, target_word.strip(),
+
+        if reverse:
+          word = Word(target_language, source_language, target_word.strip(),
                     source_word.strip(), note)
+        else:
+          word = Word(source_language, target_language, source_word.strip(),
+                    target_word.strip(), note)
+          
         self.words.append(word)
+    
+    print("Imported %d words from %s (in both directions)." % (len(self.words) / 2, filename))
 
   def shuffle_words(self):
+    print("Shuffling list of words")
     random.shuffle(self.words)
 
   def sort_words_by_average_score(self, reverse=True):
+    print("Sorting list of words by score")
     self.words.sort(key=lambda word: word.average_score(), reverse=reverse)
 
   def test_translation(self):
@@ -49,7 +56,6 @@ class WordList:
     )
     user_translation = input().strip()
     if user_translation.lower() == 'q':
-      print("\nWord list with scores:")
       print(self)
       sys.exit(0)
 

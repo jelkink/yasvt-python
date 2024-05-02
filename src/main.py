@@ -1,21 +1,20 @@
 import sys
+import argparse
 
 from wordlist import WordList
 
 
 def main():
-  if len(sys.argv) < 2:
-    # print("Usage: python main.py <filename>")
-    # sys.exit(1)
-    filename = "examples/russian.csv"
-  else:
-    filename = sys.argv[1]
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-r", "--reverse", action="store_true", dest="reverse")
+  parser.add_argument("-i", "--input", dest="filename")
+  args = parser.parse_args()
 
   word_list = WordList()
   try:
-    word_list.read_file(filename)
+    word_list.read_file(args.filename, args.reverse)
     word_list.shuffle_words()
-    print("Word list created and shuffled.")
     while True:
       word_list.test_translation()
   except ValueError as e:
