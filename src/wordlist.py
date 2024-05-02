@@ -55,23 +55,33 @@ class WordList:
         f"\nTranslate the word '{word.source_word}' from {word.source_language} to {word.target_language} (q to exit):"
     )
     user_translation = input().strip()
+
     if user_translation.lower() == 'q':
       print(self)
       sys.exit(0)
-
-    if word.update_score(user_translation):
-      print("CORRECT!\n")
+    elif user_translation.lower() == 'd':
+      self.words.remove(word)
+    elif user_translation.lower() == 'c':
+      word.reset_score()
+    elif user_translation.lower() == 'p':
+      print(self)
+    elif user_translation.lower() == 'r':
+      for word in self.words:
+        word.reverse()
     else:
-      print("OOPS! Should have been: " + word.target_word + "\n")
+      if word.update_score(user_translation):
+        print("CORRECT!\n")
+      else:
+        print("OOPS! Should have been: " + word.target_word + "\n")
 
-    self.re_insert_word()
+      self.re_insert_word()
 
   def re_insert_word(self):
     if not self.words:
       return
 
     word = self.words.pop(0)
-    insert_index = int(word.average_score() * len(self.words))
+    insert_index = int(word.average_score() * min(40, len(self.words)))
     self.words.insert(insert_index, word)
 
   def __str__(self):

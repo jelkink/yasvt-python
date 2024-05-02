@@ -5,17 +5,24 @@ class Word:
                target_language,
                source_word,
                target_word,
-               note=None,
-               score=None):
+               note=None):
     self.source_language = source_language
     self.target_language = target_language
     self.source_word = source_word
     self.target_word = target_word
     self.note = note
-    self.score = [0] * 8 if score is None else score
+    self.reset_score()
 
   def __str__(self):
-    return f"{self.source_language}: {self.source_word}   {self.target_language}: {self.target_word} ({self.note}) Score: {self.average_score():.2f}"
+    if self.note is not None:
+      note = self.note
+    else:
+      note = ""
+    score = self.average_score() * 100
+    return f"{score:3.0f}% {self.source_word} --> {self.target_word}   {note}"
+
+  def reset_score(self):
+    self.score = [0] * 8
 
   def update_score(self, guessed_target_word):
     correct = guessed_target_word == self.target_word
@@ -30,3 +37,7 @@ class Word:
     if not self.score:
       return 0
     return sum(self.score) / len(self.score)
+  
+  def reverse(self):
+    self.target_language, self.source_language = self.source_language, self.target_language
+    self.target_word, self.source_word = self.source_word, self.target_word
