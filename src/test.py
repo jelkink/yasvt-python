@@ -50,7 +50,7 @@ class Test:
         print(f"\nTranslate the word '{word.source_word}' from {word.source_language} to {word.target_language}:")
         user_translation = input().strip()
 
-        if user_translation[0] == ":":
+        if len(user_translation) > 0 and user_translation[0] == ":":
             self.process_command(user_translation[1:], word)
         else:
             found_word = self.wordlist.check_correct(word.source_word, user_translation)
@@ -58,10 +58,12 @@ class Test:
                 print("CORRECT!\n")
                 word.update_score(True)
             elif found_word is None:
-                print("OOPS! Should have been: " + word.target_word + "\n")
+                print("OOPS! Should have been:\n")
+                print(word)
                 word.update_score(False)
             else:
-                print("CORRECT! Although was looking for: " + word.target_word + "\n")
+                print("CORRECT! Although was looking for:\n")
+                print(word)
                 found_word.update_score(True)
 
             self.wordlist.re_insert_word()

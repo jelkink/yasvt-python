@@ -94,7 +94,7 @@ class WordList:
     return s / cnt * 100 
   
   def print_score(self):
-    print("Final score: %5.1f%% (%5.1f%% of those tested)" % (self.overall_score(), self.overall_score_tested()))
+    print("Current score: %5.1f%% (%5.1f%% of those tested)" % (self.overall_score(), self.overall_score_tested()))
 
   def __str__(self):
     result = ""
