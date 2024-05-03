@@ -20,6 +20,7 @@ def main():
 
     print("During the tests, the following codes apply:")
     print("p = print word list")
+    print("s = print score")
     print("r = reverse list")
     print("c = clear score of word")
     print("d = delete word from list")

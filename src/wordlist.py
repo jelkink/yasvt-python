@@ -72,6 +72,8 @@ class WordList:
       word.reset_score()
     elif user_translation.lower() == 'p':
       print(self)
+    elif user_translation.lower() == 's':
+      print("Overall score: %.1f" % (self.overall_score() * 100))
     elif user_translation.lower() == 'r':
       for word in self.words:
         word.reverse()
@@ -102,6 +104,15 @@ class WordList:
       if word.source_word == asked and word.target_word == answered:
         return word
     return None
+
+  def overall_score(self):
+    if not self.words:
+      return 0.0
+
+    s = 0
+    for word in self.words:
+      s += word.average_score()
+    return s / len(self.words)
 
   def __str__(self):
     result = ""
