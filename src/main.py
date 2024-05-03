@@ -2,7 +2,7 @@ import sys
 import argparse
 
 from wordlist import WordList
-
+from test import Test
 
 def main():
 
@@ -18,19 +18,11 @@ def main():
     word_list.read_file(args.filename, args.reverse, args.delimiter, args.header)
     word_list.shuffle_words()
 
-    print("During the tests, the following codes apply:")
-    print("p = print word list")
-    print("s = print score")
-    print("r = reverse list")
-    print("c = clear score of word")
-    print("d = delete word from list")
-    print("q = quit program")
+    test = Test(word_list)
+    test.loop()
 
-    while True:
-      word_list.test_translation()
   except ValueError as e:
     print(e)
-
 
 if __name__ == "__main__":
   main()

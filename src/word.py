@@ -11,6 +11,7 @@ class Word:
     self.source_word = source_word
     self.target_word = target_word
     self.note = note
+    self.tested = False
     self.reset_score()
 
   def __str__(self):
@@ -30,6 +31,7 @@ class Word:
     else:
       self.score.insert(0, 0)
     self.score.pop()
+    self.tested = True
 
   def average_score(self):
     if not self.score:

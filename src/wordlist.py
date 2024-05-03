@@ -44,6 +44,10 @@ class WordList:
     
     print("Imported %d words from %s (in both directions)." % (len(self.words) / 2, filename))
 
+  def reverse(self):
+    for word in self.words:
+      word.reverse()
+
   def shuffle_words(self):
     print("Shuffling list of words")
     random.shuffle(self.words)
@@ -51,45 +55,6 @@ class WordList:
   def sort_words_by_average_score(self, reverse=True):
     print("Sorting list of words by score")
     self.words.sort(key=lambda word: word.average_score(), reverse=reverse)
-
-  def test_translation(self):
-    if not self.words:
-      print("Word list is empty.")
-      return
-
-    word = self.words[0]
-    print(
-        f"\nTranslate the word '{word.source_word}' from {word.source_language} to {word.target_language} (q to exit):"
-    )
-    user_translation = input().strip()
-
-    if user_translation.lower() == 'q':
-      print(self)
-      sys.exit(0)
-    elif user_translation.lower() == 'd':
-      self.words.remove(word)
-    elif user_translation.lower() == 'c':
-      word.reset_score()
-    elif user_translation.lower() == 'p':
-      print(self)
-    elif user_translation.lower() == 's':
-      print("Overall score: %.1f" % (self.overall_score() * 100))
-    elif user_translation.lower() == 'r':
-      for word in self.words:
-        word.reverse()
-    else:
-      found_word = self.check_correct(word.source_word, user_translation)
-      if word == found_word:
-        print("CORRECT!\n")
-        word.update_score(True)
-      elif found_word is None:
-        print("OOPS! Should have been: " + word.target_word + "\n")
-        word.update_score(False)
-      else:
-        print("CORRECT! Although was looking for: " + word.target_word + "\n")
-        found_word.update_score(True)
-
-      self.re_insert_word()
 
   def re_insert_word(self):
     if not self.words:
@@ -112,7 +77,24 @@ class WordList:
     s = 0
     for word in self.words:
       s += word.average_score()
-    return s / len(self.words)
+
+    return s / len(self.words) * 100
+
+  def overall_score_tested(self):
+    cnt = 0
+    s = 0
+    for word in self.words:
+      if word.tested:
+        s += word.average_score()
+        cnt += 1
+    
+    if cnt == 0:
+      return 0.0
+    
+    return s / cnt * 100 
+  
+  def print_score(self):
+    print("Final score: %5.1f%% (%5.1f%% of those tested)" % (self.overall_score(), self.overall_score_tested()))
 
   def __str__(self):
     result = ""
