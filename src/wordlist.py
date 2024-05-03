@@ -66,7 +66,7 @@ class WordList:
 
   def check_correct(self, asked, answered):
     for word in self.words:
-      if word.source_word == asked and word.target_word == answered:
+      if word.source_word == asked and (word.target_word == answered or word.target_eo_transcribe() == answered):
         return word
     return None
 

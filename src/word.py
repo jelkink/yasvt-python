@@ -41,3 +41,17 @@ class Word:
   def reverse(self):
     self.target_language, self.source_language = self.source_language, self.target_language
     self.target_word, self.source_word = self.source_word, self.target_word
+
+  def target_eo_transcribe(self):
+    s = self.target_word
+
+    mapping = {
+      "ĉ": "cx",
+      "ĝ": "gx",
+      "ĥ": "hx",
+      "ĵ": "jx",
+      "ŝ": "sx",
+      "ŭ": "ux"
+    }
+
+    return ''.join(mapping.get(char, char) for char in s)
