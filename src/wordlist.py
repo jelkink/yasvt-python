@@ -1,6 +1,5 @@
 import random
 import csv
-import sys
 
 from word import Word
 
@@ -61,7 +60,12 @@ class WordList:
       return
 
     word = self.words.pop(0)
-    insert_index = int(word.average_score() * min(40, len(self.words)))
+    s = word.average_score()
+    if s < 0.99 or len(self.words) < 41:
+      insert_index = int(s * min(40, len(self.words)))
+    else:
+      insert_index = random.randint(40, len(self.words))
+
     self.words.insert(insert_index, word)
 
   def check_correct(self, asked, answered):
