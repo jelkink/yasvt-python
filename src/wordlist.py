@@ -9,7 +9,7 @@ class WordList:
   def __init__(self):
     self.words = []
 
-  def read_file(self, filename, reverse, delimiter, noheader):
+  def read_file(self, filename, reverse, delimiter, noheader, start, number):
     with open(filename, 'r', encoding="utf8") as file:
       reader = csv.reader(file, delimiter=delimiter)
 
@@ -25,21 +25,31 @@ class WordList:
         source_language, target_language = ("", "")
         start_line = 1
 
-      for row_num, row in enumerate(reader, start=start_line):
-        if len(row) < 2:
-          raise ValueError(
-              f"Error in row {row_num}: Row must contain at least two items.")
-        source_word, target_word = row[:2]
-        note = row[2] if len(row) > 2 else None
+      if not noheader:
+          start += 1
 
-        if reverse:
-          word = Word(target_language, source_language, target_word.strip(),
-                    source_word.strip(), note)
-        else:
-          word = Word(source_language, target_language, source_word.strip(),
-                    target_word.strip(), note)
-          
-        self.words.append(word)
+      if number > 0:
+        end = start + number
+      else:
+        end = 2**32-1
+      
+      for row_num, row in enumerate(reader, start=start_line):
+
+        if row_num >= start and row_num < end:
+          if len(row) < 2:
+            raise ValueError(
+                f"Error in row {row_num}: Row must contain at least two items.")
+          source_word, target_word = row[:2]
+          note = row[2] if len(row) > 2 else None
+
+          if reverse:
+            word = Word(target_language, source_language, target_word.strip(),
+                      source_word.strip(), note)
+          else:
+            word = Word(source_language, target_language, source_word.strip(),
+                      target_word.strip(), note)
+            
+          self.words.append(word)
     
     print("Imported %d words from %s (in both directions)." % (len(self.words) / 2, filename))
 
