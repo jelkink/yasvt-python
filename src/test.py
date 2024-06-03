@@ -34,6 +34,11 @@ class Test:
             self.wordlist.reverse()
         elif command.lower() == "h" or command.lower() == "shuffle":
             self.wordlist.shuffle_words()
+        elif command.lower() == "?":
+            self.print_menu()
+        else:
+            print("Command not recognized.")
+            self.print_menu()
 
     def loop(self):
         self.print_menu()
