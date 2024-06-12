@@ -1,4 +1,3 @@
-import sys
 import argparse
 
 from wordlist import WordList
