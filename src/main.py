@@ -4,6 +4,13 @@ from wordlist import WordList
 from test import Test
 from vocabularyextractor import VocabularyExtractor
 
+languages = {
+    "english": ("english", "en", "eng", "Zira"),
+    "russian": ("russian", "ru", "rus", "Irina"),
+    "russian": ("chinese", "zh", "rus", "Huihui"),
+    "russian": ("chinese", "hk", "rus", "Tracy")
+}
+
 def main():
 
   parser = argparse.ArgumentParser()

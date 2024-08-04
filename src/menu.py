@@ -9,6 +9,7 @@ class Menu:
         print(":s, :с = print :score")
         print(":r, :р = :reverse list")
         print(":h, :х = :shuffle list")
+        print(":a, :а = toggle :audio")
         print(":c, :к = :clear score of word")
         print(":d, :д = :delete word from list")
         print(":q, :в = :quit program")
@@ -29,6 +30,8 @@ class Menu:
             self.test.wordlist.reverse()
         elif command.lower() in ['h', 'х', 'shuffle']:
             self.test.wordlist.shuffle_words()
+        elif command.lower() in ['a', 'а', 'audio']:
+            self.test.audio = not self.test.audio
         elif command.lower() == "?":
             self.print()
         else:

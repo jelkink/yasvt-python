@@ -9,11 +9,6 @@ import pymorphy2
 
 from helpers import contains_cyrillic
 
-languages = {
-    "english": ("english", "en", "eng"),
-    "russian": ("russian", "ru", "rus")
-}
-
 from helpers import uri_validator
 
 class VocabularyExtractor:
@@ -45,7 +40,7 @@ class VocabularyExtractor:
         self.translations = self.lemmas
 
     def read_text(self):
-        with open(self.input, "r", encoding="utf-8") as infile:
+        with open(self.input, "r", encoding="utf-8-") as infile:
             self.text = infile.read()
 
     def read_url(self):

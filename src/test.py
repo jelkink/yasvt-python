@@ -1,5 +1,6 @@
 import sys
 from menu import Menu
+from speech import Speech
 
 from wordlist import WordList
 
@@ -8,7 +9,9 @@ class Test:
     def __init__(self, wordlist):
         self.wordlist = wordlist
         self.continueProgram = True
+        self.audio = False
         self.menu = Menu(self)
+        self.speech = Speech()
 
     def loop(self):
         self.menu.print()
@@ -22,7 +25,13 @@ class Test:
             return
 
         word = self.wordlist.words[0]
-        print(f"\nTranslate the word '{word.source_word}' from {word.source_language} to {word.target_language}:")
+
+        if not self.audio:
+            print(f"\nTranslate the word '{word.source_word}' from {word.source_language} to {word.target_language}:")
+        else:
+            print(f"\nTranslate what you hear from {word.source_language} to {word.target_language}:")
+            self.speech.say(word.source_word, word.source_language)
+
         user_translation = input().strip()
 
         if len(user_translation) > 0 and user_translation[0] == ":":
