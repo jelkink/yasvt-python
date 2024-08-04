@@ -9,12 +9,6 @@ import pymorphy2
 
 from helpers import contains_cyrillic
 
-## THIS FILE IS NOW WRITTEN WITH THE ASSUMPTION THAT THE ORIGINAL LANGUAGE
-## IS RUSSIAN!
-
-#nltk.download('punkt')
-#nltk.download('averaged_perceptron_tagger_ru')
-
 languages = {
     "english": ("english", "en", "eng"),
     "russian": ("russian", "ru", "rus")
