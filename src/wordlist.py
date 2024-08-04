@@ -51,7 +51,7 @@ class WordList:
             
           self.words.append(word)
     
-    print("Imported %d words from %s (in both directions)." % (len(self.words) / 2, filename))
+    print("Imported %d words from %s." % (len(self.words), filename))
 
   def reverse(self):
     for word in self.words:
