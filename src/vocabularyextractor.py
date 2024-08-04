@@ -7,8 +7,13 @@ import argostranslate.translate
 from urllib import request
 import pymorphy2
 
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger_ru')
+from helpers import contains_cyrillic
+
+## THIS FILE IS NOW WRITTEN WITH THE ASSUMPTION THAT THE ORIGINAL LANGUAGE
+## IS RUSSIAN!
+
+#nltk.download('punkt')
+#nltk.download('averaged_perceptron_tagger_ru')
 
 languages = {
     "english": ("english", "en", "eng"),
@@ -41,7 +46,7 @@ class VocabularyExtractor:
         morph = pymorphy2.MorphAnalyzer()
 
         tokens = list(set(nltk.word_tokenize(self.text.lower(), language = self.language[0])))
-        tokens = [w for w in tokens if len(w) > 2]
+        tokens = [w for w in tokens if len(w) > 2 and contains_cyrillic(w)]
         self.lemmas = list(set([morph.parse(token)[0].normal_form for token in tokens]))
         self.translations = self.lemmas
 
@@ -72,4 +77,12 @@ class VocabularyExtractor:
                 outfile.write(word + "," + trans + "\n")
 
     def translate(self):
+        morph = pymorphy2.MorphAnalyzer()
+
         self.translations = [argostranslate.translate.translate(w, self.language[1], "en") if w is not None else '' for w in self.lemmas]
+        
+        i = 0
+        while i < len(self.translations):
+            if morph.parse(self.lemmas[i])[0].tag.POS == "INFN":
+                self.translations[i] = "to " + self.translations[i]
+            i += 1
