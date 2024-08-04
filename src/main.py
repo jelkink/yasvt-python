@@ -7,7 +7,6 @@ from vocabularyextractor import VocabularyExtractor
 def main():
 
   parser = argparse.ArgumentParser()
-  parser.add_argument("-r", "--reverse", action="store_true", dest="reverse")
   parser.add_argument("-i", "--input", dest="filename")
   parser.add_argument("-d", "--delimiter", dest="delimiter", default=",")
   parser.add_argument("-e", "--no-header", action="store_true",  dest="header")
@@ -21,7 +20,7 @@ def main():
   if args.datasource == "":
     word_list = WordList()
     try:
-      word_list.read_file(args.filename, args.reverse, args.delimiter, args.header, int(args.start), int(args.number))
+      word_list.read_file(args.filename, args.delimiter, args.header, int(args.start), int(args.number))
       word_list.shuffle_words()
 
       test = Test(word_list)

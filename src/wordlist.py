@@ -9,7 +9,7 @@ class WordList:
   def __init__(self):
     self.words = []
 
-  def read_file(self, filename, reverse, delimiter, noheader, start, number):
+  def read_file(self, filename, delimiter, noheader, start, number):
     with open(filename, 'r', encoding="utf8") as file:
       reader = csv.reader(file, delimiter=delimiter)
 
@@ -42,12 +42,8 @@ class WordList:
           source_word, target_word = row[:2]
           note = row[2] if len(row) > 2 else None
 
-          if reverse:
-            word = Word(target_language, source_language, target_word.strip(),
-                      source_word.strip(), note)
-          else:
-            word = Word(source_language, target_language, source_word.strip(),
-                      target_word.strip(), note)
+          word = Word(source_language, target_language, source_word.strip(),
+                    target_word.strip(), note)
             
           self.words.append(word)
     
