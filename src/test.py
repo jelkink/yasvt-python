@@ -44,6 +44,7 @@ class Test:
             elif found_word is None:
                 print("OOPS! Should have been:\n")
                 print(word)
+                word.print_note()
                 word.update_score(False)
             else:
                 print("CORRECT! Although was looking for:\n")

@@ -15,12 +15,15 @@ class Word:
     self.reset_score()
 
   def __str__(self):
+    score = self.average_score() * 100
+    return f"{score:3.0f}% {self.source_word} --> {self.target_word}"
+
+  def print_note(self):
     if self.note is not None:
       note = self.note
     else:
       note = ""
-    score = self.average_score() * 100
-    return f"{score:3.0f}% {self.source_word} --> {self.target_word}   {note}"
+    print(f"Note: {note}")
 
   def reset_score(self):
     self.score = [0] * 8
