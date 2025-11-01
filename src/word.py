@@ -1,3 +1,5 @@
+import pypinyin
+
 class Word:
 
   def __init__(self,
@@ -16,7 +18,18 @@ class Word:
 
   def __str__(self):
     score = self.average_score() * 100
-    return f"{score:3.0f}% {self.source_word} --> {self.target_word}"
+
+    if self.source_language == "Chinese":
+      term1 = self.source_word + " (" + ' '.join(pypinyin.lazy_pinyin(self.source_word)) + ")"
+    else:
+      term1 = self.source_word
+
+    if self.target_language == "Chinese":
+      term2 = self.target_word + " (" + ' '.join(pypinyin.lazy_pinyin(self.target_word)) + ")"
+    else:
+      term2 = self.target_word
+
+    return f"{score:3.0f}% {term1} --> {term2}"
 
   def print_note(self):
     if self.note is not None:
