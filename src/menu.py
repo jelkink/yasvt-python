@@ -10,6 +10,7 @@ class Menu:
         print(":r, :р = :reverse list")
         print(":h, :х = :shuffle list")
         print(":a, :а = toggle :audio")
+        print(":t, :т = toggle :type")
         print(":c, :к = :clear score of word")
         print(":d, :д = :delete word from list")
         print(":q, :в = :quit program")
@@ -31,7 +32,11 @@ class Menu:
         elif command.lower() in ['h', 'х', 'shuffle']:
             self.test.wordlist.shuffle_words()
         elif command.lower() in ['a', 'а', 'audio']:
+            print("Setting audio to", not self.test.audio)
             self.test.audio = not self.test.audio
+        elif command.lower() in ['t', 'т', 'type']:
+            print("Setting type to", not self.test.type)
+            self.test.type = not self.test.type
         elif command.lower() == "?":
             self.print()
         else:
