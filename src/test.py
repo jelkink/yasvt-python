@@ -45,6 +45,8 @@ class Test:
                 print("OOPS! Should have been:\n")
                 print(word)
                 word.print_note()
+                self.speech.say(word.source_word, word.source_language)
+                self.speech.say(word.target_word, word.target_language)
                 word.update_score(False)
             else:
                 print("CORRECT! Although was looking for:\n")

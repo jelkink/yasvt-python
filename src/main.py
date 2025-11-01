@@ -3,21 +3,15 @@ import argparse
 from wordlist import WordList
 from test import Test
 
-languages = {
-    "english": ("english", "en", "eng", "Zira"),
-    "russian": ("russian", "ru", "rus", "Irina"),
-    "russian": ("chinese", "zh", "rus", "Huihui"),
-    "russian": ("chinese", "hk", "rus", "Tracy")
-}
-
 def main():
 
   parser = argparse.ArgumentParser()
-  parser.add_argument("-i", "--input", dest="filename")
+  parser.add_argument("-i", "--input", dest="filename", required=True)
   parser.add_argument("-d", "--delimiter", dest="delimiter", default=",")
   parser.add_argument("-e", "--no-header", action="store_true",  dest="header")
   parser.add_argument("-s", "--start", dest="start", default = "1")
   parser.add_argument("-n", "--number", dest="number", default = "-1")
+  parser.add_argument("-a", "--audio", action="store_true", dest="audio", default=False)
   args = parser.parse_args()
 
   word_list = WordList()
@@ -26,6 +20,7 @@ def main():
     word_list.shuffle_words()
 
     test = Test(word_list)
+    test.audio = args.audio
     test.loop()
 
   except ValueError as e:
