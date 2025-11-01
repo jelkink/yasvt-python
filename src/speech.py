@@ -14,9 +14,11 @@ class Speech:
         pass
 
     def say(self, text, language):
+        print("🔊", end="", flush=True)
         soundfile = f"/tmp/vocab {text}.mp3"
         if not os.path.exists(soundfile):
             tts = gTTS(text, lang=languages[language][4])
             tts.save(soundfile)
 
         os.system(f"mpv --really-quiet \"{soundfile}\"")
+        print("\b ", end="", flush=True)
