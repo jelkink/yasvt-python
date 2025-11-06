@@ -1,5 +1,6 @@
 from gtts import gTTS
 import os
+import hashlib
 
 languages = {
     "English": ("english", "en", "eng", "Zira", "en"),
@@ -15,7 +16,8 @@ class Speech:
 
     def say(self, text, language):
         print("🔊", end="", flush=True)
-        soundfile = f"/tmp/vocab {text}.mp3"
+        text_hash = hashlib.md5(text.encode('utf-8')).hexdigest()
+        soundfile = f"/tmp/vocab_{text_hash}_{language}.mp3"
         if not os.path.exists(soundfile):
             tts = gTTS(text, lang=languages[language][4])
             tts.save(soundfile)
