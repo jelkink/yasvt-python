@@ -12,7 +12,7 @@ def main():
   parser.add_argument("-s", "--start", dest="start", default = "1")
   parser.add_argument("-n", "--number", dest="number", default = "-1")
   parser.add_argument("-a", "--audio", action="store_true", dest="audio", default=True)
-  parser.add_argument("-t", "--type", action="store_true", dest="type", default=False)
+  parser.add_argument("-t", "--type", action="store_true", dest="type", default=True)
   args = parser.parse_args()
 
   word_list = WordList()
