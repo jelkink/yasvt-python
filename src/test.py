@@ -28,13 +28,16 @@ class Test:
 
         word = self.wordlist.words[0]
 
-        choice = random.randint(0, 2)
+        choice = random.randint(0, 3)
 
         if self.type and choice == 0:
             print(f"\nType out the word '{word.target_word}' in {word.target_language}:")
         elif self.audio and choice == 1:
             print(f"\nTranslate what you hear from {word.source_language} to {word.target_language}:")
             self.speech.say(word.source_word, word.source_language)
+        elif self.audio and choice == 2:
+            print(f"\nType out the word you hear in {word.target_language}:")
+            self.speech.say(word.target_word, word.target_language)
         else:
             print(f"\nTranslate the word '{word.source_word}' from {word.source_language} to {word.target_language}:")
 
