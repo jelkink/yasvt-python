@@ -3,10 +3,10 @@ import os
 import hashlib
 
 languages = {
-    "English": ("english", "en", "eng", "Zira", "en"),
-    "Russian": ("russian", "ru", "rus", "Irina", "ru"),
-    "Chinese": ("chinese", "zh", "rus", "Huihui", "zh"),
-    "Hongkong": ("hongkong", "hk", "rus", "Tracy", "yue")
+    "english": ("english", "en", "eng", "Zira", "en"),
+    "russian": ("russian", "ru", "rus", "Irina", "ru"),
+    "chinese": ("chinese", "zh", "rus", "Huihui", "zh"),
+    "hongkong": ("hongkong", "hk", "rus", "Tracy", "yue")
 }
 
 class Speech:
