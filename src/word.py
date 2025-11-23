@@ -41,7 +41,7 @@ class Word:
   def reset_score(self):
     self.score = [0] * 8
 
-  def update_score(self, correct):
+  def update_score(self, correct, database=None):
     if correct:
       self.score.insert(0, 1)
     else:
@@ -49,14 +49,35 @@ class Word:
     self.score.pop()
     self.tested = True
 
+    if database is not None:
+      database.update_word_score(self)
+
+  def get_score_byte(self):
+    byte = 0
+    for i in range(8):
+      if self.score[i]:
+        byte |= (1 << i)
+    return byte
+  
+  def set_score_byte(self, byte):
+    self.score = []
+    for i in range(8):
+      if byte & (1 << i):
+        self.score.append(1)
+      else:
+        self.score.append(0)
+
   def average_score(self):
     if not self.score:
       return 0
     return sum(self.score) / len(self.score)
   
-  def reverse(self):
+  def reverse(self, database=None):
     self.target_language, self.source_language = self.source_language, self.target_language
     self.target_word, self.source_word = self.source_word, self.target_word
+
+    if (database is not None):
+      database.read_word_score(self)
 
   def target_eo_transcribe(self):
     s = self.target_word

@@ -28,7 +28,7 @@ class Menu:
         elif command.lower() in ['s', 'с', '分数', 'score']:
             self.test.wordlist.print_score()
         elif command.lower() in ['r', 'р', '反转', 'reverse']:
-            self.test.wordlist.reverse()
+            self.test.wordlist.reverse(self.test.database)
         elif command.lower() in ['h', 'х', '洗牌', 'shuffle']:
             self.test.wordlist.shuffle_words()
         elif command.lower() in ['a', 'а', '音频', 'audio']:

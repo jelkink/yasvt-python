@@ -8,8 +8,13 @@ class WordList:
 
   def __init__(self):
     self.words = []
+    self.database = None
 
-  def read_file(self, filename, delimiter, noheader, start, number):
+  def read_file(self, filename, delimiter, noheader, start, number, source_language=None, target_language=None):
+
+    if source_language is not None and target_language is not None:
+      noheader = True
+
     with open(filename, 'r', encoding="utf8") as file:
       reader = csv.reader(file, delimiter=delimiter)
 
@@ -20,13 +25,13 @@ class WordList:
               "The first row of the CSV file must contain at least two items: source language and target language."
           )
         source_language, target_language = first_row[:2]
+        source_language = source_language.strip().lower()
+        target_language = target_language.strip().lower()
         start_line = 2
-      else:
-        source_language, target_language = ("", "")
-        start_line = 1
 
-      if not noheader:
-          start += 1
+        start += 1
+      else:
+        start_line = 1
 
       if number > 0:
         end = start + number
@@ -49,9 +54,15 @@ class WordList:
     
     print("Imported %d words from %s." % (len(self.words), filename))
 
-  def reverse(self):
+  def append(self, word):
+    self.words.append(word)
+
+  def reverse(self, database=None):
     for word in self.words:
-      word.reverse()
+      word.reverse(database)
+  
+  def clear(self):
+    self.words = []
 
   def shuffle_words(self):
     print("Shuffling list of words")

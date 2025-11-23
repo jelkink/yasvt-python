@@ -7,8 +7,9 @@ from wordlist import WordList
 
 class Test:
 
-    def __init__(self, wordlist):
+    def __init__(self, wordlist, database=None):
         self.wordlist = wordlist
+        self.database = database
         self.continueProgram = True
         self.audio = False
         self.type = False
@@ -32,10 +33,10 @@ class Test:
 
         if self.type and choice == 0:
             print(f"\nType out the word '{word.target_word}' in {word.target_language}:")
-        elif self.audio and choice == 1:
+        elif self.audio and choice == 1 and self.speech.has_language(word.source_language):
             print(f"\nTranslate what you hear from {word.source_language} to {word.target_language}:")
             self.speech.say(word.source_word, word.source_language)
-        elif self.audio and choice == 2:
+        elif self.audio and choice == 2 and self.speech.has_language(word.target_language):
             print(f"\nType out the word you hear in {word.target_language}:")
             self.speech.say(word.target_word, word.target_language)
         else:
@@ -49,18 +50,20 @@ class Test:
             found_word = self.wordlist.check_correct(word.source_word, user_translation)
             if word == found_word:
                 print("CORRECT!\n")
-                word.update_score(True)
+                word.update_score(True, self.database)
             elif found_word is None:
                 print("OOPS! Should have been:\n")
                 print(word)
                 word.print_note()
-                self.speech.say(word.source_word, word.source_language)
-                self.speech.say(word.target_word, word.target_language)
-                word.update_score(False)
+                if self.speech.has_language(word.source_language):
+                    self.speech.say(word.source_word, word.source_language)
+                if self.speech.has_language(word.target_language):
+                    self.speech.say(word.target_word, word.target_language)
+                word.update_score(False, self.database)
             else:
                 print("CORRECT! Although was looking for:\n")
                 print(word)
-                found_word.update_score(True)
+                found_word.update_score(True, self.database)
 
             self.wordlist.re_insert_word()
 
