@@ -1,5 +1,3 @@
-import argparse
-
 import PyPDF2
 import nltk
 import string
@@ -9,9 +7,8 @@ import argostranslate.translate
 from urllib import request
 import pymorphy2
 
-from helpers import contains_cyrillic
-
-from helpers import uri_validator
+from yasvt.helpers import contains_cyrillic
+from yasvt.helpers import uri_validator
 
 class VocabularyExtractor:
 
@@ -78,18 +75,10 @@ class VocabularyExtractor:
                 self.translations[i] = "to " + self.translations[i]
             i += 1
 
-def main():
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-x", "--extract", dest="datasource", default = "")
-    parser.add_argument("-o", "--output", dest="datatarget", default = "")
-    parser.add_argument("-l", "--language", dest = "datalanguage", default = "")
-    args = parser.parse_args()
+def main(args):
 
     ve = VocabularyExtractor()
     ve.read(args.datasource, args.datalanguage)
     ve.translate()
     ve.write(args.datatarget)
 
-if __name__ == "__main__":
-  main()

@@ -1,5 +1,5 @@
 import sqlite3
-from word import Word
+from yasvt.word import Word
 
 class Database:
 

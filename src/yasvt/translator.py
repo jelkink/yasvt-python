@@ -1,5 +1,4 @@
-import argparse
-import babelnet as bn
+ # import babelnet as bn
 
 class Mapper:
   
@@ -15,17 +14,9 @@ class Mapper:
     def write(self, outfile):
       pass
 
-def main():
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input", dest="infile")
-    parser.add_argument("-o", "--output", dest="outfile")
-    args = parser.parse_args()
+def main(args):
 
     mapper = Mapper()
     mapper.read(args.infile)
     mapper.translate()
     mapper.write(args.outfile)
-
-if __name__ == "__main__":
-  main()

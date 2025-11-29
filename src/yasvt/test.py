@@ -1,9 +1,9 @@
 import sys
 import random
-from menu import Menu
-from speech import Speech
+from yasvt.menu import Menu
+from yasvt.speech import Speech
 
-from wordlist import WordList
+from yasvt.wordlist import WordList
 
 class Test:
 

@@ -1,7 +1,7 @@
 import random
 import csv
 
-from word import Word
+from yasvt.word import Word
 
 
 class WordList:

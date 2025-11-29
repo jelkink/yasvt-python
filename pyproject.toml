@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yasvt"
+version = "0.1.0"
+description = "Yet Another Simple Vocabulary Trainer"
+readme = "README.md"
+license = {text = "GNU General Public License v3.0"}
+authors = [
+    {name = "Jos Dornschneider-Elkink", email = "jos@joselkink.net"}
+]
+dependencies = [
+    "pypinyin",
+    "gTTS",
+    "PyPDF2",
+    "nltk",
+    "argostranslate",
+    "pymorphy2"
+]
+
+[project.scripts]
+yasvt = "yasvt.main:main"
