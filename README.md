@@ -6,5 +6,5 @@ To install:
 
 ```bash
 python -m build
-pipx -v install dist/yasvt-0.1.0-py3-none-any.whl --force
+pipx -v install --python python3.12 dist/yasvt-0.1.0-py3-none-any.whl
 ```
